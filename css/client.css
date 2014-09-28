@@ -1,0 +1,109 @@
+/* 
+    Document   : client
+    Created on : 17-nov-2010, 18:28:53
+    Author     : Cristian
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+*{
+    text-shadow: none;
+}
+.ui-field-contain{
+    padding:0;
+    border-bottom-width:0;
+}
+.ui-btn-inner{
+    padding: 1px;
+}
+.ui-controlgroup, fieldset.ui-controlgroup{
+    margin: 0px;
+}
+.ui-controlgroup .ui-checkbox input{
+    margin-left: -10px;
+}
+.ui-controlgroup .ui-checkbox label, .ui-controlgroup .ui-radio label {
+    font-size: 10px;
+}
+.ui-controlgroup-label{
+    line-height: 1;
+    margin: 0px;
+}
+.ui-bar{
+    font-size:10px;
+}
+.ui-navbar-noicons li .ui-btn .ui-btn-inner, .ui-navbar-noicons .ui-navbar-toggle .ui-btn-inner {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+.ui-header .ui-title, .ui-footer .ui-title {
+    margin: 0.6em 0 0.8em;
+    font-size: 10px;
+}
+.ui-header .ui-btn-left {
+    top: 0.1em;
+}
+.ui-header .ui-btn-right {
+    top: 0.1em;
+}
+.ui-body-c, .ui-body-c input, .ui-body-c select, .ui-body-c textarea, .ui-body-c button {
+    margin: 2px;
+}
+.ui-field-contain {
+    margin: 5px 0;
+}
+.ui-controlgroup-label {
+    font-size: 13px;
+}
+.ui-btn-down-c, .ui-btn-hover-c {
+    background: #BCBCBC;
+    background-image: none;
+}
+.ui-btn-up-c {
+    background: #FDFDFD;
+    background-image: none;
+}
+.ui-bton-down-b, .ui-btn-hover-b {
+    background: #FDFDFD;
+    background-image: none;
+}
+.ui-btn-up-b {
+    background: #2567AB;
+    background-image: none;
+}
+.ui-btn-down-a, .ui-btn-hover-a {
+    background: #8A8A8A;
+    background-image: none;
+}
+.ui-btn-up-a {
+    background: #333;
+    background-image: none;
+}
+.ui-bar-a {
+    background: #111;
+    background-image: none;
+}
+.ui-bar-b {
+    background: #5E87B0;
+    background-image: none;
+    text-shadow: none;
+}
+.ui-bar-c {
+    background: #E9EAEB;
+    background-image: none;
+    text-shadow: none;
+}
+.ui-icon {
+    border: 0;
+}
+.ui-shadow-inset {
+    -webkit-box-shadow: none;
+}
+.ui-btn-corner-all, .ui-icon {
+    border-radius: 0;
+    border: 0;
+}

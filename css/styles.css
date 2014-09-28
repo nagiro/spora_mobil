@@ -1,0 +1,254 @@
+/* Start of reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* no decoration at all on links */
+a {
+    text-decoration: none;
+}
+/* End of reset CSS */
+
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+a.button, input[type=submit], input[type=button] {
+  color: #e5e5e5;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, rgb(33,33,33)), color-stop(0.5, rgb(51,51,51)));
+    background: -moz-linear-gradient(center bottom,rgb(33,33,33) 31%, rgb(51,51,51) 50%);
+    border: 1px solid #191919;
+    text-shadow: #000 0 -1px 0;
+    display: inline-block;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    font-size: 11px;
+    margin:0;
+    text-decoration: none;
+    padding: 2px 10px;
+}
+
+.field {
+    clear: left;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.fieldLabel {
+    float: left;
+    text-align: right;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 20%;
+    padding: 5px 0;
+}
+
+.fieldInput {
+    float: left;
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+input {
+    border: 1px solid lightgray;
+}
+
+input.hourInput {
+    width: 25px;
+}
+
+input[type=number], input.numeric {
+    width: 50px;
+}
+
+input:focus {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+#header {
+    height: 120px;
+    text-align: center;
+    background: url(../css/images/spora_logo.png) no-repeat 20px 20px;
+    border-bottom: 2px solid green;
+}
+
+#header h1 {
+    padding-top: 45px;
+}
+
+#header .usuari {
+    float: right;
+    padding: 0 10px;
+}
+
+#navbar {
+    float: left;
+    width: 200px;
+}
+
+#navbar ul li {
+    padding: 7px 20px;
+    font-size: 13px;
+}
+
+#navbar ul li:hover {
+    font-weight: bold;
+}
+
+#navbar ul li a {
+    color: black;
+    padding: 5px 0;
+}
+
+#navbar ul li.separator {
+    font-weight: bold;
+    padding: 5px;
+    font-size: 13px;
+}
+
+#contents{
+    padding: 20px 0 0 20px;
+    float: left;
+    width: 75%;
+}
+
+#footer {
+    clear: both;
+    height: 100px;
+    margin-top: 20px;
+    border-top: 2px solid green;
+}
+
+.leftText {
+    float: left;
+    width: 100px;
+}
+
+.actions {
+    padding: 15px 10px 15px 0;
+}
+
+#drop-div {
+    border: 2px dashed grey;
+    border-radius: 10px;
+    background: url(../css/images/xls-icon.png) no-repeat center center;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 35px 20px;
+    opacity: .5;
+}
+
+#drop-div-text {
+    opacity: 1;
+}
+
+table th {
+    border: none;
+    border-bottom: 2px dashed green;
+    border-collapse: collapse;
+}
+
+.odd {
+    background-color: white;
+}
+
+.even {
+    background-color: lightgreen;
+}
+
+.stat1 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px;
+    background-color: greenyellow;
+}
+
+.stat1 td:first-child {
+    text-align: left;
+}
+
+.stat1 td {
+    text-align: right;
+}
+
+.stat2 {
+    font-size: 13px;
+}
+
+.stat2 td:first-child {
+    text-decoration: underline;
+    padding: 5px 5px 5px 20px;
+    text-align: left;
+}
+
+.stat2 td {
+    text-align: right;
+}
+
+.stat3 {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.stat3 td:first-child {
+    text-align: left;
+    padding: 5px 5px 5px 35px;
+}
+
+.stat3 td {
+    text-align: right;
+}
+
+.stattotal td:first-child {
+    text-align: left;
+}
+
+.stattotal td {
+    text-align: right;
+    font-weight: bold;
+    background-color: greenyellow;
+}
