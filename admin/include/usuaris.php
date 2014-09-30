@@ -46,7 +46,9 @@
                         <td>' . $strMunicipis . '</td>
                         <td>';
 
-                    if($u['id'] == $_SESSION['userID'] || !in_array($u['profile'], array(Users::PERFIL_ADMINISTRADOR, Users::PERFIL_MANTENIDOR))) {
+                    if($u['id'] == $_SESSION['userID']                     		
+                    		|| in_array($_SESSION['profile'], array(Users::PERFIL_ADMINISTRADOR, Users::PERFIL_MANTENIDOR)) 
+                    	) {
                         echo sprintf($accions, $u['id'], $u['id']);
                     }
 
