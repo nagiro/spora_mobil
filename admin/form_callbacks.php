@@ -51,11 +51,11 @@ function action_esborraMunicipi() {
     $municipi = intval($_REQUEST['municipi']);
 
     if($municipi < 1) {
-        throw new Exception('El municipi no és vàlid');
+        throw new Exception('El municipi no Ã©s vÃ lid');
     }
 
     if(!Sessions::isMaintainer()) {
-        throw new Exception('No tens permís per executar aquesta acció');
+        throw new Exception('No tens permÃ­s per executar aquesta acciÃ³');
     }
 
     Poblacions::eliminaCarrersMunicipi($municipi);
@@ -116,7 +116,7 @@ function action_saveDirection() {
     $text = $_REQUEST['llar'];
 
     if(empty($text)) {
-        throw new Exception('Has d\'escriure el número de la llar');
+        throw new Exception('Has d\'escriure el nÃºmero de la llar');
     }
 
     $direccio = new DBTable('direccions', $id);
@@ -255,7 +255,7 @@ function action_stats_particular() {
     $municipi = intval($_REQUEST['municipi']);
     
     if(count($_SESSION['municipi']) && !in_array($municipi, $_SESSION['municipi'])) {
-        throw new Exception('No se\'t permet consultar estadístiques d\'aquest municipi');
+        throw new Exception('No se\'t permet consultar estadÃ­stiques d\'aquest municipi');
     }
     
     $barri = intval($_REQUEST['barri']);
@@ -400,7 +400,7 @@ function action_saveProductor() {
     $horariFi = sprintf('%02d:%02d:00', $_REQUEST['horaFi'], $_REQUEST['minutFi']);
 
     if(strcmp($horariInici, $horariFi) > 0) {
-        throw new Exception('L\'horari no és vàlid: la hora final de l\'horari és anterior a la d\'inici');
+        throw new Exception('L\'horari no Ã©s vÃ lid: la hora final de l\'horari Ã©s anterior a la d\'inici');
     }
 
     $diesDescans = array();
@@ -510,7 +510,7 @@ function action_saveEntregaMaterial() {
 function action_saveSeguiment() {
     $id = intval($_REQUEST['id']);
     $productor = intval($_REQUEST['productor']);
-    $participa = ($_REQUEST['participa'] == 'true')? 'Sí' : 'No';
+    $participa = ($_REQUEST['participa'] == 'true')? 'SÃ­' : 'No';
     $grauSatisfaccio = intval($_REQUEST['grauSatisfaccio']);
     $queixes = $_REQUEST['queixes'];
     $dubtes = $_REQUEST['dubtes'];
@@ -541,6 +541,20 @@ function action_saveSeguiment() {
     }
 
     Sessions::ajaxRedirect('seguimentsproductor');
+}
+
+function action_savePoblacio() {
+	$id = intval($_REQUEST['id']);
+	$nom = $_REQUEST['nom'];
+	$actiu = intval($_REQUEST['actiu']);
+	
+	if(empty($id)) {
+		Poblacions::creaPoblacions($nom, $actiu);		
+	} else {
+		Poblacions::updatePoblacions($id, $nom, $actiu);
+	}
+
+	Sessions::ajaxRedirect('poblacions');
 }
 
 function action_deleteProducer() {
@@ -596,5 +610,17 @@ function action_llistaCarrers() {
     echo json_encode(Poblacions::llistaCarrers($municipi, $barri));
     exit;
 }
+
+function action_deletePoblacions() {
+	if(isset($_REQUEST['id']) && !empty($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
+		$id = intval($_REQUEST['id']);
+
+		$poblacio = new DBTable('municipis', $id);
+		$poblacio->delete();
+	}
+
+	Sessions::redirect('poblacions');
+}
+
 
 ?>

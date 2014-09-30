@@ -42,7 +42,8 @@ abstract class Poblacions {
         $query = '
         SELECT DISTINCT
             `id`,
-            `nom`
+            `nom`,
+        	`actiu`
         FROM `municipis` ORDER BY `nom` ASC
         ';
 
@@ -83,7 +84,8 @@ abstract class Poblacions {
         $query = '
         SELECT
             `id`,
-            `nom`
+            `nom`,
+        	`actiu`
         FROM `municipis`
         WHERE `id` = :id
         ';
@@ -1343,6 +1345,42 @@ abstract class Poblacions {
 
         return true;
     }
+    
+    public static function creaPoblacions($nom, $actiu) {
+    
+    	$db = Database::getInstance();
+    
+    	$query = 'INSERT INTO `municipis` (`nom`, `actiu`) VALUES (:nom,:actiu)';
+         
+    	$params = array(    			
+    			':nom' => $nom,
+    			':actiu' => $actiu
+    	);
+        	
+    	return $db->exec($query, $params);
+    }
+    
+
+    public static function updatePoblacions($id, $nom, $actiu) {
+    	if(empty($id)) {
+    		return false;
+    	}
+    
+    	$db = Database::getInstance();
+    
+    	$query = ' UPDATE `municipis` SET `nom` = :nom, `actiu` = :actiu WHERE `id` = :id';
+    	 
+    	$params = array(
+    			':id' => $id,
+    			':nom' => $nom,
+    			':actiu' => $actiu,
+    	);
+
+    	return $db->exec($query, $params);
+    	
+    }
+    
+    
 }
 
 ?>

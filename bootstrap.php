@@ -21,21 +21,19 @@ abstract class Bootstrap {
     private static function setDebugging() {
         ini_set('display_errors', 'On');
         error_reporting(E_ALL);
-// 	ini_set('display_errors', 'Off');
-//         error_reporting(0);
     }
 
     public static function cleanRequest() {
         unset($_POST);
         unset($_GET);
 
-        self::cleanVar(&$_REQUEST);
+        self::cleanVar($_REQUEST);
     }
 
     private static function cleanVar($var) {
         foreach($var as $key => $value) {
             if(is_array($value)) {
-                self::cleanVar(&$var[$key]);
+                self::cleanVar($var[$key]);
             } else {
                 $var[$key] = htmlentities($value, ENT_QUOTES, 'UTF-8');
             }

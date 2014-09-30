@@ -1,0 +1,44 @@
+BDD
+-----------------
+www.spora.es/mya
+usuari: spora
+psw: Y-4&4DHNGuAk
+
+WWW
+-------------------
+host: 81.25.112.130
+usuari: mobil
+psw: spora16
+
+INSTRUCCIONS
+--------------------------------------
+Per donar d’alta un municipi nou:
+
+ 
+Dades (dins el plesk, aneu a Inicio -> spora.es (abaix) -> Bases de datos -> spora -> Adm. Web-BD) :
+
+Dirección de acceso:  https://spora.es:8443/login.php3?previous_page=index
+
+Usuario:serv14h11418
+
+Contraseña: 57Y877AQ
+
+ 
+
+I a la taula municipis -> Insertar, i Posem: Nom = Santa Coloma de Gramenet, Actiu = 1, Id = BUIT
+
+ 
+
+PENJAR LA BASE DE DADES
+
+Després importar l'excel amb el sistema de la pàgina "Particulars -> Importa adreces"
+
+La base de dades ha der se un Excel 97
+
+ 
+
+BLOQUEJAR MUNICIPIS PERQUÈ ELS EDUCADORS NOMÉS PUGUIN ENTRAR AL SEU MUNICIPI:
+
+Per tal de bloquejar un usuari a un municipi, només cal des de l'administrador, afegir l'usuari i seleccionar dins el requadre "Bloqueja l'usuari als municipis" el municipi desitjat.
+
+ 

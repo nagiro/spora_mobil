@@ -10,11 +10,11 @@ define('FORMS_DIR', 'forms');
 define('FORM_TYPES_DIR', 'types');
 
 // Database settings
-define('SQL_CONNECTION_STRING', 'mysql:dbname=spora;host=localhost');
+define('SQL_CONNECTION_STRING', 'mysql:dbname=spora;host=localhost;uid=root');
 define('SQL_DBNAME', 'spora');
 define('SQL_HOST', 'localhost');
-define('SQL_USER', 'spora');
-define('SQL_PASSWORD', 'Y-4&4DHNGuAk');
+define('SQL_USER', 'root');
+define('SQL_PASSWORD', '');
 
 define('DEBUG_MODE', false);
 define('ENTRIES_PER_PAGE', 30);
