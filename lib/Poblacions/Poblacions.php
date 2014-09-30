@@ -1336,13 +1336,13 @@ abstract class Poblacions {
         foreach($numeros as $numero) {
             $carrer = $numero[0];
             $barri = $numero[1];
-            $text = $numero[2];
+            $text = $numero[3];
             $ordre = self::calculaOrdreRelatiuNumero($numero[2]);
             $numeroCarrer = $numero[2];
 
             $stat->execute();
         }
-
+		
         return true;
     }
     

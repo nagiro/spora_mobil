@@ -9,21 +9,19 @@ class Parser_PinedaDeMar extends GenericParser {
     protected $pis;
     protected $porta;
     protected $barri;
+    protected $text;
 
     public function  __construct() {
         $this->carrer = 1;
-        $this->via = 2;
-        $this->numero = 3;
-        $this->bloc = 4;
-        $this->escala = 5;
-        $this->pis = 6;
-        $this->porta = 7;
-        $this->barri = 8;
+        $this->text = 2;
+        $this->barri = 4;   
+        $this->numero = 1;     
     }
-
+    
     public function parse() {
         $tmpFile = Sessions::getVar('UploadedXLS');
         $path = FILES_DIR . '/' . basename($tmpFile);
+        //$path = "D:\www\spora_mobil\habitatges.xls";
 
         if(empty($tmpFile) || !file_exists($path)) {
             throw new Exception('No es pot accedir al fitxer carregat');
@@ -35,64 +33,45 @@ class Parser_PinedaDeMar extends GenericParser {
         $excel = new Spreadsheet_Excel_Reader($path, false);
         $maxRow = $excel->rowcount();
 
-//        $idBarri = 49; //Hardcoding - veure script BD versió 1.7
-        $carrerAnterior = '';
+        $carrerAnterior = '';        
         $viaAnterior = '';
         $numeros = array();
 
+		//Per cada fila a l'excel
         for($i = 2; $i <= $maxRow; $i++) {
-            $carrer = cleanString($excel->val($i, $this->carrer));
-            //Tallem el carrer quan comencen els n�meros... 
-            print_r(preg_match_all("A-Z",$carrer, $A));
-            die;
-            //$via = cleanString($excel->val($i, $this->via));
+            //Agafem el nom del carrer
+        	$carrer = $excel->val($i, $this->carrer);
+            
+            //Tallem el text i deixem el número i altres a l'altra banda...             
+        	preg_match("/[A-Za-z ]+/", $carrer, $carrer_ok);
+        	$carrer_ok = cleanString($carrer_ok[0]);        	
+        	$numero = intval(substr($carrer, strlen($carrer_ok),5));
+        	$text = cleanString(substr($carrer, strlen($carrer_ok)));       	            		           
             $via = "Cr"; //Posem la via per codi
 
-            if(empty($via) || empty($carrer)) {
-                echo 'Error: columna de carrer buida a [' . $i .']: Via:' . sprintf("%05s", $via) . ' Carrer:' . $carrer . PHP_EOL;
+            if(empty($via) || empty($carrer_ok)) {
+                echo 'Error: columna de carrer buida a [' . $i .']: Via:' . sprintf("%05s", $via) . ' Carrer:' . $carrer_ok . PHP_EOL;
                 continue;
             }
-
-            $numero = $excel->val($i, $this->numero);
-
-            $bloc = $excel->val($i, $this->bloc);
-            if(!empty($bloc)) {
-                $numero.= ' ' . $bloc;
-            }
-
-            $escala = $excel->val($i, $this->escala);
-            if(!empty($escala)) {
-                $numero.= ' ' . $escala;
-            }
-
-            $pis = $excel->val($i, $this->pis);
-            if(!empty($pis)) {
-                $numero.= ' ' . $pis;
-            }
-
-            $porta = $excel->val($i, $this->porta);
-            if(!empty($porta)) {
-                $numero.= ' ' . $porta;
-            }
-            
+                        
             $barri = cleanString($excel->val($i, $this->barri));
 
             $canviVia   = strcmp($via, $viaAnterior);
             $canviCarrer= strcmp($carrer, $carrerAnterior);
 
             if($canviVia || $canviCarrer) {
-                $idCarrer = Poblacions::obteIDCarrerPerNomComplet($via, $carrer, $this->idMunicipi);
-                
+            	//Busquem el carrer i si no existeix, el creem. I si el barri no existeix, també el creem.
+                $idCarrer = Poblacions::obteIDCarrerPerNomComplet($via, $carrer_ok, $this->idMunicipi);                
                 $idBarri = Poblacions::obteIDBarriPerNom($barri, $this->idMunicipi);
                 
                 if($idBarri < 1) {
-                	echo 'Afegint: barri ' . $barri . ' carrer: ' . $carrer . PHP_EOL;
+                	echo 'Afegint: barri ' . $barri . ' carrer: ' . $carrer_ok . '<br />';
                 	$idBarri = Poblacions::afegeixBarri($barri, $this->idMunicipi);
                 }
                 
                 if($idCarrer < 1) {
-                    echo 'Afegint: via ' . $via . ' carrer: ' . $carrer . PHP_EOL;
-                    $idCarrer = Poblacions::afegeixCarrer($via, $carrer, $this->idMunicipi);
+                    echo 'Afegint: via ' . $via . ' carrer: ' . $carrer_ok . '<br />';
+                    $idCarrer = Poblacions::afegeixCarrer($via, $carrer_ok, $this->idMunicipi);
                     Poblacions::afegeixBarriCarrer($idBarri, $idCarrer);
                 }
 
@@ -100,7 +79,7 @@ class Parser_PinedaDeMar extends GenericParser {
                 $carrerAnterior = $carrer;
             }
 
-            $numeros[$i] = array($idCarrer, $idBarri, $numero);
+            $numeros[$i] = array($idCarrer, $idBarri, $numero, $text);
         }
 
         unset($excel);

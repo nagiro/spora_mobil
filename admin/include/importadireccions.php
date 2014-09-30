@@ -19,22 +19,16 @@
 
                 var optionsStr = '', index;
                 for(var i in data) {
-                    index = parseInt(i) + 1;
+                    index = parseInt(i) + 1;                    
                     optionsStr+= '<option value="' + index + '">' + data[i] + '</option>';
                 }
 
+/*                
+				$('#municipi').html(optionsStr);
                 $('#barri').html(optionsStr);
+                $('#carrer').html(optionsStr);
                 $('#text').html(optionsStr);
-                
-                $('#via').html(optionsStr);
-                $('#nom').html(optionsStr);
-
-                $('#numero').html(optionsStr);
-                $('#bis').html(optionsStr);
-                $('#bloc').html(optionsStr);
-                $('#escala').html(optionsStr);
-                $('#repla').html(optionsStr);
-                $('#porta').html(optionsStr);
+*/                             
             });
 
             $.getJSON('?action=getXLSSheets', function(data) {
@@ -48,7 +42,7 @@
             });
         };
 
-        //Selector de municipis
+        //Selector de municipis        
         $.getJSON('?action=get&table=municipis', {actiu: 1}, function(data){
             $.each(data, function(index, entry){
                 $('<option></option>')
@@ -57,14 +51,12 @@
                     .appendTo('#municipi');
             });
         });
-
+		
         $('#formImporta').submit(function(){
             var indexMunicipi = $('#municipi').val(),
-                indexBarri = $('#barri').val(),
-                indexText = $('#text').val(),
                 fullesTriades = $('#fulles').val();
 
-            if(!indexMunicipi || !indexBarri) {
+            if(!indexMunicipi) {
                 return false;
             }
 
@@ -74,13 +66,10 @@
                 dataType: 'json',
                 data: {
                     municipi: indexMunicipi,
-                    barri: indexBarri,
-                    text: indexText,
                     fulles: fullesTriades
                 }
             });
 
-            //window.location = '?page=resumdireccions';
             return false;
         });
     });
@@ -111,30 +100,6 @@
 
             <div class="fieldInput">
                 <select name="municipi" id="municipi">
-                    <option><?php echo i18n::t('Tria una columna'); ?></option>
-                </select>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">
-                <label for="barri"><?php echo i18n::t('Barri'); ?></label>
-            </div>
-
-            <div class="fieldInput">
-                <select name="barri" id="barri">
-                    <option><?php echo i18n::t('Tria una columna'); ?></option>
-                </select>
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="fieldLabel">
-                <label for="text"><?php echo i18n::t('Camp genèric'); ?></label>
-            </div>
-
-            <div class="fieldInput">
-                <select name="text" id="text">
                     <option><?php echo i18n::t('Tria una columna'); ?></option>
                 </select>
             </div>

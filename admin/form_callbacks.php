@@ -203,18 +203,13 @@ function action_getXLSSheets() {
 
 function action_parseXLSText() {
     $municipi = $_REQUEST['municipi'];
-    $barri = $_REQUEST['barri'];
-    $text = $_REQUEST['text'];
 
-    if(empty($municipi) || empty($barri) || empty($text)) {
+    if(empty($municipi)) {
         exit;
     }
     
     $parser = XLSReader::getParser($municipi);
-
-    $parser->setMunicipi($municipi);
-    $parser->setBarri($barri);
-    $parser->setText($text);
+    $parser->setMunicipi($municipi);    
     $parser->parse();
     exit;
 }
