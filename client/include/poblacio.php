@@ -5,7 +5,7 @@
 
     <div data-role="content">
         <ul data-role="listview" data-filter="true">
-            <?php                
+            <?php                           
                 if(count($_SESSION['municipi'])) {
                     $poblacio = array();
                        
@@ -13,7 +13,7 @@
                         $poblacio[] = Poblacions::obteMunicipi($m);
                     }
                 } else {
-                    $poblacio = Poblacions::llistaPoblacions();                    
+                    $poblacio = Poblacions::llistaPoblacions();                                        
                 }
 
                 if(is_array($poblacio)) {

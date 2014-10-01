@@ -146,7 +146,8 @@ abstract class Users {
             LEFT JOIN `menu` `m` ON `a`.`menu` = `m`.`id`
             LEFT JOIN `menu_group_labels` `mg` ON `mg`.`language` = :language AND `mg`.`id` = `m`.`grup`
             LEFT JOIN `menu_entry_labels` `ml` ON `ml`.`language` = :language AND `ml`.`menu` = `m`.`id`
-        WHERE `a`.`perfil` = :perfil';
+        WHERE `a`.`perfil` = :perfil
+          AND `m`.`grup` > 0';
 
         $opcions = $db->query($query, array(
             ':perfil' => Sessions::getProfile(),
