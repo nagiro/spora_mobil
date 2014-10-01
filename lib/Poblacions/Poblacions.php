@@ -1310,13 +1310,15 @@ abstract class Poblacions {
             `barri`,
             `numero`,
             `ordrePis`,
-            `text`
+            `text`,
+        	`cadastre`
         ) VALUES (
             :carrer,
             :barri,
             :numero,
             :ordre,
-            :text
+            :text,
+        	:cadastre
         )
         ';
 
@@ -1325,6 +1327,7 @@ abstract class Poblacions {
         $numeroCarrer = 0;
         $ordre = 0;
         $text = '';
+        $cadastre = '';
 
         $stat = Database::getInstance()->getStatement($query);
         $stat->bindParam(':barri', $barri, PDO::PARAM_INT);
@@ -1332,6 +1335,8 @@ abstract class Poblacions {
         $stat->bindParam(':numero', $numeroCarrer, PDO::PARAM_INT);
         $stat->bindParam(':ordre', $ordre, PDO::PARAM_INT);
         $stat->bindParam(':text', $text, PDO::PARAM_STR);
+        $stat->bindParam(':cadastre', $cadastre, PDO::PARAM_STR);
+        
 
         foreach($numeros as $numero) {
             $carrer = $numero[0];
@@ -1339,6 +1344,7 @@ abstract class Poblacions {
             $text = $numero[3];
             $ordre = self::calculaOrdreRelatiuNumero($numero[2]);
             $numeroCarrer = $numero[2];
+            $cadastre = $numero[4];
 
             $stat->execute();
         }

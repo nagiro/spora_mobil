@@ -10,12 +10,13 @@ class Parser_PinedaDeMar extends GenericParser {
     protected $porta;
     protected $barri;
     protected $text;
+    protected $cadastre;
 
     public function  __construct() {
-        $this->carrer = 1;
-        $this->text = 2;
+        $this->carrer = 1;               
         $this->barri = 4;   
         $this->numero = 1;     
+        $this->cadastre = 2;
     }
     
     public function parse() {
@@ -48,6 +49,7 @@ class Parser_PinedaDeMar extends GenericParser {
         	$numero = intval(substr($carrer, strlen($carrer_ok),5));
         	$text = cleanString(substr($carrer, strlen($carrer_ok)));       	            		           
             $via = "Cr"; //Posem la via per codi
+            $cadastre = cleanString($excel->val($i, $this->cadastre));
 
             if(empty($via) || empty($carrer_ok)) {
                 echo 'Error: columna de carrer buida a [' . $i .']: Via:' . sprintf("%05s", $via) . ' Carrer:' . $carrer_ok . PHP_EOL;
@@ -79,7 +81,7 @@ class Parser_PinedaDeMar extends GenericParser {
                 $carrerAnterior = $carrer;
             }
 
-            $numeros[$i] = array($idCarrer, $idBarri, $numero, $text);
+            $numeros[$i] = array($idCarrer, $idBarri, $numero, $text, $cadastre);
         }
 
         unset($excel);
