@@ -10,9 +10,9 @@
     <div data-role="content">
         <ul data-role="listview">
             <li><a href="?page=poblacio">Poblaci&oacute;n</a></li>
-            <li><a href="?page=grans">Grandes Productores</a></li>
-            <li><a href="?page=entrega">Entrega de Material</a></li>
-            <li><a href="?page=seguiment">Seguimiento</a></li>
+            <!-- <li><a href="?page=grans">Grandes Productores</a></li> -->
+            <!-- <li><a href="?page=entrega">Entrega de Material</a></li> -->
+            <!-- <li><a href="?page=seguiment">Seguimiento</a></li> -->
         </ul>
     </div><!-- /content -->
 </div><!-- /Menu page -->
