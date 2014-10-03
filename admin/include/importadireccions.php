@@ -59,22 +59,21 @@
             if(!indexMunicipi) {
                 return false;
             }
-
-            $.ajax({
-                url: '?action=parseXLSText',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    municipi: indexMunicipi,
-                    fulles: fullesTriades
-                }
-            });
-
+            $("#loading").show();
+            $.get(	'?action=parseXLSText',
+            		{
+                		municipi: indexMunicipi,
+                		fulles: fullesTriades
+            		},
+            		function(data){ $("#loading").hide(); }
+            );
+                    
             return false;
         });
     });
 </script>
 
+<h3 id="loading" style="display:none; background-color:#CCCCCC; text-align:center; width:100%; padding:10px; margin-bottom:10px;">Loading...</h3>
 <h2><?php echo i18n::t('Entrada de dades'); ?></h2>
 
 <div id="fileuploader">    
