@@ -2,6 +2,7 @@
     $(function() {
 
 		$("#b_exporta").click(function(){
+			$("#loading").show();
 			$.get('?action=exportXLS', 
 					{
 						municipi:   $('#municipi_select').val(),
@@ -11,9 +12,10 @@
 		                tipusAccio: $('#tipusAccio').val(),
 		                inici:      $('#dataInici').val(),
 		                fi:         $('#dataFi').val()
-					}, function(retData){
+					}, function(retData){				  
 				  var binUrl = JSON.parse(retData);
 				  document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
+				  $("#loading").hide();
 				}); 			
 		});
         
@@ -30,10 +32,12 @@
         $('#dataFi').datepicker('setDate', '+0d');
 
         $('#municipi_select').change(function() {
+        	$("#loading").show();
             $.getJSON('?action=get&table=carrers', {
                 municipi: $(this).val(),
                 sort: 'nom'
             }, function(data) {
+            	$("#loading").hide();
                 $('#carrer').html('<option value="">- Tots -</option>');
 
                 if(data) {
@@ -75,7 +79,7 @@
 
         $('#filter').submit(function() {
             $('#llista').html('');
-
+            $("#loading").show();
             $.getJSON('?action=stats_particular', {
                 municipi:   $('#municipi_select').val(),
                 barri:      $('#barri').val(),
@@ -86,7 +90,8 @@
                 fi:         $('#dataFi').val()
             }, function(data) {
                 var total = 0;
-
+                $("#loading").hide();
+                
                 $.each(data, function(ciutat, barris) {
                     if(typeof(barris) != 'object') {
                         return true;
@@ -164,8 +169,8 @@
     });
 </script>
 
+<h3 id="loading" style="display:none; background-color:#CCCCCC; text-align:center; width:100%; padding:10px; margin-bottom:10px;">Loading...</h3>
 <h2><?php echo i18n::t('Estadístiques'); ?></h2>
-
 <form method="post" action="" id="filter">
     <fieldset>
         <div class="field">

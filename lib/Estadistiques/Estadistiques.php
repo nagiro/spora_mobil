@@ -70,8 +70,8 @@ abstract class Estadistiques {
         }
 
         $query.= ' AND `ocult` = 0 ORDER BY `educador` DESC,`carrer` ASC, `text` ASC';
-        $resultats = $db->query($query, $params);        
-
+        $resultats = $db->query($query, $params);
+                        
         if(is_array($resultats)) {            
 
         	$rows = array();
@@ -79,7 +79,7 @@ abstract class Estadistiques {
         	$educador_ant = "";
         	$i = 1;
 
-        	$path = FILES_DIR.'/estadistiques.csv';
+        	$path = FILES_DIR.'/estadistiques.csv';        	
         	$fp = fopen($path,"w+");
         	
         	$previous_memory_limit = ini_get('memory_limit');
@@ -89,7 +89,7 @@ abstract class Estadistiques {
         	
             foreach($resultats as $r) {
                 
-            	if($direccio_ant <> $r['text'] || $educador_ant <> $r['educador']):            		
+            	if($direccio_ant <> $r['carrer'].$r['text'] || $educador_ant <> $r['educador']):            		
             		if(isset($rows[$i])) fputcsv($fp, $rows[$i],";",'"');            		
             		$rows[++$i] = array(
             								'V'=>0,
@@ -105,7 +105,7 @@ abstract class Estadistiques {
             		
             	endif;            	
             		
-            	$direccio_ant = $r['text'];
+            	$direccio_ant = $r['carrer'].$r['text'];
             	$educador_ant = $r['educador'];            	       	            
             	switch($r['idActuacio']){
             		case  '9': $rows[$i]['V'] = 1; break;
@@ -115,6 +115,9 @@ abstract class Estadistiques {
             	}            	
             	
         	}
+        	
+        	//Entrem la última línia
+        	fputcsv($fp, $rows[$i],";",'"');
         	
         	echo json_encode($path);        	
         	fclose($fp);
