@@ -617,5 +617,24 @@ function action_deletePoblacions() {
 	Sessions::redirect('poblacions');
 }
 
+function action_exportXLS(){
+    $municipi = intval($_REQUEST['municipi']);
+    
+//    if(count($_SESSION['municipi']) && !in_array($municipi, $_SESSION['municipi'])) {
+//        throw new Exception('No se\'t permet consultar estadÃ­stiques d\'aquest municipi');
+//    }
+    
+    $barri = intval($_REQUEST['barri']);
+    $carrer = intval($_REQUEST['carrer']);
+    $educador = intval($_REQUEST['educador']);
+    $tipusAccio = intval($_REQUEST['tipusAccio']);
+    $inici = $_REQUEST['inici'];
+    $fi = $_REQUEST['fi'];
+
+    Estadistiques::poblacio_excel($municipi, $barri, $carrer, $educador, $tipusAccio, $inici, $fi);    
+    exit;
+		
+}
+
 
 ?>

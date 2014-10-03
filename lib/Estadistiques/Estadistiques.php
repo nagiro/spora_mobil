@@ -1,7 +1,131 @@
 <?php
 
 abstract class Estadistiques {
-    public static function poblacio($municipi = null, $barri = null, $carrer = null, $educador = null, $actuacio = null, $inici = null, $fi = null) {
+
+	public static function poblacio_excel($municipi = null, $barri = null, $carrer = null, $educador = null, $actuacio = null, $inici = null, $fi = null) {
+        $db = Database::getInstance();
+
+        $originalLimit = ini_get('memory_limit');
+        ini_set('memory_limit', '128M');
+
+        $query = '
+        SELECT
+            `al`.`nom` AS `actuacio`,
+        	`a`.`id` AS `idActuacio`,	
+            `a`.`informat`,
+            CONCAT(`c`.`via`, `c`.`nom`) AS `carrer`,
+            `b`.`nom` AS barri,
+            `c`.`municipi` AS idMunicipi,
+            `m`.`nom` AS municipi,
+            `d`.`text`,
+        	`d`.`cadastre`,
+            `u`.`username` AS `educador`
+        FROM `direccions` `d`
+            LEFT JOIN `carrers` `c` ON `c`.`id` = `d`.`carrer`
+        	LEFT JOIN `barris` `b` ON `d`.`barri` = `b`.`id`                        
+            LEFT JOIN `municipis` `m` ON `m`.`id` = `c`.`municipi`
+            LEFT JOIN `formularipoblacio` `fp` ON `d`.`id` = `fp`.`direccio`
+            LEFT JOIN `usuaris` `u` ON `u`.`id` = `fp`.`educador`
+            LEFT JOIN `actuacions` `a` ON `a`.`id` = `fp`.`actuacio`
+	    	LEFT JOIN `actuacions_labels` `al` ON `al`.`actuacio` = `fp`.`actuacio` AND `al`.`idioma` = \'ca\'               
+        ';
+        
+        $filters = array();
+
+        if(!empty($carrer)) {
+            $filters[] = '`c`.`id` = :carrer';
+            $params[':carrer'] = $carrer;
+        }
+        else if(!empty($barri)) {
+            $filters[] = '`ba`.`grup` = :grup';
+            $params[':grup'] = $barri;
+        }
+        else if(!empty($municipi)) {
+            $filters[] = '`c`.`municipi` = :municipi';
+            $params[':municipi'] = $municipi;
+        }
+
+        if(!empty($educador)) {
+            $filters[] = '`u`.`id` = :educador';
+            $params[':educador'] = $educador;
+        }
+
+        if(!empty($actuacio)) {
+            if(is_numeric($actuacio)) {
+                $filters[] = '`a`.`id` = :actuacio';
+                $params[':actuacio'] = $actuacio;
+            } else {
+                $filters[] = '`a`.`informat` = "1"';
+            }
+        }
+
+        if(validDateRange($inici, $fi)) {
+            $filters[] = 'AND `fp`.`data` BETWEEN :inici AND :fi';
+            $params[':inici'] = date2Timestamp($inici, true);
+            $params[':fi'] = date2Timestamp($fi, false);
+        }
+
+        if(count($filters) > 0) {
+            $query.= 'WHERE 1=1 ' . join(' AND ', $filters);
+        }
+
+        $query.= ' AND `ocult` = 0 ORDER BY `educador` DESC,`carrer` ASC, `text` ASC';
+        $resultats = $db->query($query, $params);        
+
+        if(is_array($resultats)) {            
+
+        	$rows = array();
+        	$direccio_ant = "";
+        	$educador_ant = "";
+        	$i = 1;
+
+        	$path = FILES_DIR.'/estadistiques.csv';
+        	$fp = fopen($path,"w+");
+        	
+        	$previous_memory_limit = ini_get('memory_limit');
+        	ini_set('memory_limit', '128M');
+        	        	        	        
+        	fputcsv($fp, array('V','PaP','PI','N/V','Carrer','Barri','Municipi','Adreça','Catastre','Educador'),";",'"');
+        	
+            foreach($resultats as $r) {
+                
+            	if($direccio_ant <> $r['text'] || $educador_ant <> $r['educador']):            		
+            		if(isset($rows[$i])) fputcsv($fp, $rows[$i],";",'"');            		
+            		$rows[++$i] = array(
+            								'V'=>0,
+            								'PaP'=>0,
+            								'PI'=>0,
+            								'N/V'=>0,
+            								'Carrer'=> $r['carrer'],
+            								'Barri' => $r['barri'],
+            								'Municipi' => $r['municipi'],
+            								'Adreca' => $r['text'],
+            								'Cadastre' => $r['cadastre'],            							
+            								'Educador' => $r['educador']);            		
+            		
+            	endif;            	
+            		
+            	$direccio_ant = $r['text'];
+            	$educador_ant = $r['educador'];            	       	            
+            	switch($r['idActuacio']){
+            		case  '9': $rows[$i]['V'] = 1; break;
+            		case '10': $rows[$i]['PaP'] = 1; break;
+            		case '11': $rows[$i]['PI'] = 1; break;
+            		case '12': $rows[$i]['N/V'] = 1; break;
+            	}            	
+            	
+        	}
+        	
+        	echo json_encode($path);        	
+        	fclose($fp);
+        }
+          
+        
+        ini_set('memory_limit', $originalLimit);        
+        
+    }
+	
+	public static function poblacio($municipi = null, $barri = null, $carrer = null, $educador = null, $actuacio = null, $inici = null, $fi = null) {
         $db = Database::getInstance();
 
         $originalLimit = ini_get('memory_limit');
@@ -203,8 +327,10 @@ abstract class Estadistiques {
         }
 
         echo json_encode($stats);
-
         ini_set('memory_limit', $originalLimit);
+        return $stats;
+
+        
     }
 }
 

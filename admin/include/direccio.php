@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         <?php
-            $llistaOpcions = Poblacions::mostraOpcions();
+            $llistaOpcions = Poblacions::mostraOpcions($carrer->municipi);
             $opcions = '';
 
             $formularisDireccio = Poblacions::llistaOpcionsDireccio($id);

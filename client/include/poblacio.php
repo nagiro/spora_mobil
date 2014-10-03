@@ -5,12 +5,12 @@
 
     <div data-role="content">
         <ul data-role="listview" data-filter="true">
-            <?php                           
+            <?php                                                  
                 if(count($_SESSION['municipi'])) {
                     $poblacio = array();
                        
                     foreach($_SESSION['municipi'] AS $m) {
-                        $poblacio[] = Poblacions::obteMunicipi($m);
+                        $poblacio[] = Poblacions::obteMunicipi($m);                       
                     }
                 } else {
                     $poblacio = Poblacions::llistaPoblacions();                                        

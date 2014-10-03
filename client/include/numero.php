@@ -68,7 +68,7 @@
     <div data-role="content" style="padding:0 15px;">
         <?php
             $num = Poblacions::mostraActuacionsCarrer($id, $a, $count, $offset);
-            $opc = Poblacions::mostraOpcions();
+            $opc = Poblacions::mostraOpcions(Poblacions::obteMunicipiCarrer($id));            
 
             if(is_array($num)) {
                 foreach($num as $n) {

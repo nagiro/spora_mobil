@@ -1,5 +1,22 @@
 <script type="text/javascript" language="javascript">
     $(function() {
+
+		$("#b_exporta").click(function(){
+			$.get('?action=exportXLS', 
+					{
+						municipi:   $('#municipi_select').val(),
+		                barri:      $('#barri').val(),
+		                carrer:     $('#carrer').val(),
+		                educador:   $('#educador').val(),
+		                tipusAccio: $('#tipusAccio').val(),
+		                inici:      $('#dataInici').val(),
+		                fi:         $('#dataFi').val()
+					}, function(retData){
+				  var binUrl = JSON.parse(retData);
+				  document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
+				}); 			
+		});
+        
         $('#dataInici').datepicker({
             changeYear: true,
             dateFormat: 'dd/mm/yy'
@@ -284,6 +301,7 @@
 
             <div class="fieldInput">
                 <input name="send" value="<?php echo i18n::t('Filtra'); ?>" type="submit" class="button" />
+                <input id="b_exporta" name="send" value="<?php echo i18n::t('Exporta'); ?>" type="button" class="button" />
             </div>
         </div>
 

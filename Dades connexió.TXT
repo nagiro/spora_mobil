@@ -1,9 +1,21 @@
 ﻿Canvis que caldrà fer a la BDD 	
-- UPDATE menu set grup = 0 where grup = 1
+- UPDATE menu set grup = 0 where grup = 1;
+- UPDATE menu set grup = 3 where id = 11; 
+- UPDATE menu set grup = 3 where id = 13;
 - ALTER TABLE `direccions` ADD `cadastre` VARCHAR(100) NULL ;
+- UPDATE actuacions_labels set idioma = 'cap' WHERE
+- INSERT INTO `spora`.`actuacions` (`id`, `perfil`, `informat`) VALUES ('9', 'Educador', '1'), ('10', 'Educador', '1'), ('11', 'Educador', '1'), ('12', 'Educador', '1');
+- INSERT INTO spora.actuacions_labels (actuacio,idioma,nom,abreviacio) 
+	VALUES 
+		(9,'es','(Nuevo) Visitado', 'Vis'), 
+		(10,'es','(Nuevo) Puerta a puerta', 'PaP'),
+		(11,'es','(Nuevo) Punto informativo', 'PI'),
+		(12,'es','(Nuevo) No quiere', 'N/Q'),
+		(9,'ca','(Nou) Visitat', 'Vis'), 
+		(10,'ca','(Nou) Porta a porta', 'PaP'),
+		(11,'ca','(Nou) Punt informatiu', 'PI'),
+		(12,'ca','(Nou) No vol', 'N/V');
 
-
-BDD
 -----------------
 www.spora.es/mya
 usuari: spora
