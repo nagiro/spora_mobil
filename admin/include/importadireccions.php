@@ -21,14 +21,7 @@
                 for(var i in data) {
                     index = parseInt(i) + 1;                    
                     optionsStr+= '<option value="' + index + '">' + data[i] + '</option>';
-                }
-
-/*                
-				$('#municipi').html(optionsStr);
-                $('#barri').html(optionsStr);
-                $('#carrer').html(optionsStr);
-                $('#text').html(optionsStr);
-*/                             
+                }                
             });
 
             $.getJSON('?action=getXLSSheets', function(data) {
@@ -65,7 +58,7 @@
                 		municipi: indexMunicipi,
                 		fulles: fullesTriades
             		},
-            		function(data){ $("#loading").hide(); }
+            		function(data){ alert(data); $("#loading").hide(); }
             );
                     
             return false;
@@ -100,6 +93,8 @@
             <div class="fieldInput">
                 <select name="municipi" id="municipi">
                     <option><?php echo i18n::t('Tria una columna'); ?></option>
+                    <option value="-1"><?php echo i18n::t('Municipi genèric'); ?></option>
+                    
                 </select>
             </div>
         </div>
