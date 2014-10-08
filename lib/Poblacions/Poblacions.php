@@ -36,15 +36,16 @@ abstract class Poblacions {
         return $result[0]['id'];
     }
 
-    public static function llistaMunicipis() {
+    public static function llistaMunicipis($actius = true) {
         $db = Database::getInstance();
-
+		if($actius) $WHERE = "WHERE `actiu` = 1";
+		else $WHERE = "";
         $query = '
         SELECT DISTINCT
             `id`,
             `nom`,
         	`actiu`
-        FROM `municipis` ORDER BY `nom` ASC
+        FROM `municipis` '.$WHERE.'  ORDER BY `nom` ASC
         ';
 
         return $db->query($query);
@@ -159,7 +160,7 @@ abstract class Poblacions {
         FROM `barris` `b`
             LEFT JOIN `barrisagrupats` `ba` ON `b`.`id` = `ba`.`barri`
             LEFT JOIN `municipis` `m` ON `m`.`id` = `b`.`municipi`
-        WHERE `ba`.`actiu` = 1 ';
+        WHERE `ba`.`actiu` = 1 AND `m`.`actiu` = 1 ';
 
         if($municipi) {
             $query.= ' AND `b`.`municipi` = :municipi';
@@ -273,7 +274,8 @@ abstract class Poblacions {
             `m`.`id` AS idMunicipi,
             `m`.`nom` AS nomMunicipi
         FROM `barris` `b`
-        LEFT JOIN `municipis` `m` ON `b`.`municipi` = `m`.`id`';
+        LEFT JOIN `municipis` `m` ON `b`.`municipi` = `m`.`id`
+         	WHERE `m`.`actiu` = 1';
         $params = array();
 
         if($municipi) {
@@ -412,6 +414,7 @@ abstract class Poblacions {
             LEFT JOIN `barriscarrer` `bc` ON `bc`.`carrer` = `c`.`id`
             LEFT JOIN `barris` `b` ON `b`.`id` = `bc`.`barri`
             LEFT JOIN `municipis` `m` ON `b`.`municipi` = `m`.`id`
+        		WHERE `m`.`actiu` = 1
         ';
         $params = array();
         $where = array();

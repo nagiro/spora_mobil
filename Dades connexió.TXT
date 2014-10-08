@@ -1,0 +1,56 @@
+﻿Canvis que caldrà fer a la BDD 	
+SET SQL_SAFE_UPDATES = 0;
+UPDATE menu set grup = 0 where grup = 1;
+UPDATE menu set grup = 3 where id = 11; 
+UPDATE menu set grup = 3 where id = 13;
+ALTER TABLE `direccions` ADD `cadastre` VARCHAR(100) NULL ;
+ALTER TABLE `direccions` ADD `cadastre` VARCHAR(100) NULL ;
+INSERT INTO `spora`.`actuacions` (`id`, `perfil`, `informat`) VALUES ('9', 'Educador', '1'), ('10', 'Educador', '1'), ('11', 'Educador', '1'), ('12', 'Educador', '1');
+INSERT INTO spora.actuacions_labels (actuacio,idioma,nom,abreviacio) 
+	VALUES 
+		(9,'es','(Nuevo) Visitado', 'Vis'), 
+		(10,'es','(Nuevo) Puerta a puerta', 'PaP'),
+		(11,'es','(Nuevo) Punto informativo', 'PI'),
+		(12,'es','(Nuevo) No quiere', 'N/Q'),
+		(9,'ca','(Nou) Visitat', 'Vis'), 
+		(10,'ca','(Nou) Porta a porta', 'PaP'),
+		(11,'ca','(Nou) Punt informatiu', 'PI'),
+		(12,'ca','(Nou) No vol', 'N/V');
+
+-----------------
+www.spora.es/mya
+usuari: spora
+psw: Y-4&4DHNGuAk
+
+81.25.112.130
+Usuario: sporaes
+Contraseña: /Nu&qZKv[+#-
+
+
+WWW
+-------------------
+host: 81.25.112.130
+usuari: mobil
+psw: spora16
+
+------------------
+http://www.swpanel.com
+Usuario: SC024
+Contraseña: X1s?d-lx8Jg4
+----------------
+
+INSTRUCCIONS
+--------------------------------------
+Per donar d�alta un municipi nou:
+
+ 
+Dades (dins el plesk, aneu a Inicio -> spora.es (abaix) -> Bases de datos -> spora -> Adm. Web-BD) :
+
+Direcci�n de acceso:  https://spora.es:8443/login.php3?previous_page=index
+
+Usuario:serv14h11418
+
+Contrase�a: 57Y877AQ
+
+
+ 

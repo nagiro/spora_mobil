@@ -14,7 +14,11 @@
 		                fi:         $('#dataFi').val()
 					}, function(retData){				  
 				  var binUrl = JSON.parse(retData);
-				  document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
+				  var iframe = document.createElement("iframe");
+				  	iframe.setAttribute("src", binUrl);
+				  	iframe.setAttribute("style", "display: none");
+				  	document.body.appendChild(iframe);
+				  //document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
 				  $("#loading").hide();
 				}); 			
 		});
