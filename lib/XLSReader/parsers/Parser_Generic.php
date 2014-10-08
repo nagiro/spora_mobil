@@ -49,7 +49,8 @@ class Parser_Generic extends GenericParser {
         	$municipi = cleanString($excel->val($i, $this->carrer));
         	 
         	//Comprovem que el municipi existeixi
-        	if(!is_numeric($municipi) || empty($municipi) || empty(Poblacions::obteMunicipi($municipi))) {
+        	$tmp = Poblacions::obteMunicipi($municipi);
+        	if(!is_numeric($municipi) || empty($municipi) || empty($tmp)) {
         		echo 'Error: columna de municipi buida o incorrecte a [' . $i .']: ' . PHP_EOL;
         		continue;
         	}
