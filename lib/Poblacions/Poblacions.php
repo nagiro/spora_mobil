@@ -678,6 +678,7 @@ abstract class Poblacions {
             LEFT JOIN `actuacions_labels` `l` ON `a`.`id` = `l`.`actuacio`
         WHERE `l`.`idioma` = :idioma';
         if($municipi > 11810 ) $query .= " AND `a`.`id` > 8";
+        else  $query .= " AND `a`.`id` <= 8";
 
         return Database::getInstance()->query($query, array(':idioma' => Sessions::getVar('language')));
     }
