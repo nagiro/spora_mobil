@@ -14,7 +14,11 @@
 		                fi:         $('#dataFi').val()
 					}, function(retData){				  
 				  var binUrl = JSON.parse(retData);
-				  document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
+				  var iframe = document.createElement("iframe");
+				  	iframe.setAttribute("src", binUrl);
+				  	iframe.setAttribute("style", "display: none");
+				  	document.body.appendChild(iframe);
+				  //document.body.innerHTML += "<iframe src='" + binUrl + "' style='display: none;' ></iframe>"
 				  $("#loading").hide();
 				}); 			
 		});
@@ -273,7 +277,7 @@
             <div class="fieldInput">
                 <select name="tipusAccio" id="tipusAccio" style="width: 200px;">
                     <?php
-                        $tipus = Poblacions::mostraOpcions();
+                        $tipus = Poblacions::mostraOpcions(-1);
 
                         if(is_array($tipus)) {
                             echo '<option value="Informats" selected="selected">' . i18n::t('Informats') . '</option>';

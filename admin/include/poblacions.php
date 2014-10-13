@@ -91,7 +91,7 @@ else $poblacio = Poblacions::obteMunicipi(null);
 	    </thead>
 	    <tbody>
 	        <?php
-	            $municipis = Poblacions::llistaMunicipis();
+	            $municipis = Poblacions::llistaMunicipis(false);
 	
 	            if(is_array($municipis)) {
 	                foreach($municipis as $p) {

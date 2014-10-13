@@ -69,18 +69,42 @@ abstract class Users {
         }
 
         $password = md5($password . md5($password));
-
-        $user = new DBTable('usuaris');
-        $user->username = $username;
-        $user->password = $password;
-        $user->profile  = $profile;
-        $user->nom	= $name;
-        $user->creacio	= date('Y-m-d H:i:s');
-        $user->language = $language;
-        //$user->municipi = 0;
-        $user->store();
+        $dcrea = date('Y-m-d H:i:s');
+                
+        $query = '
+            INSERT INTO `usuaris` (
+                `username`,
+                `password`,
+                `creacio`,
+                `profile`,
+                `nom`,
+                `municipi`,
+                `language`        		        		
+            ) VALUES (
+                :username,                
+                :password,
+                :creacio,                
+                :profile,
+                :nom,                
+                :municipi,
+                :language                                        		
+            )
+        ';
         
-        return true;
+        $db = Database::getInstance();
+        $params = array(
+        		':username' => $username,
+        		':password' => $password,
+        		':creacio' => $dcrea,
+        		':profile' => $profile,
+        		':nom' => $name,
+        		':municipi' => 0,
+        		':language' => $language        		
+        );
+        
+        $result = $db->insert($query,$params);        
+                
+        return $result;
     }
 
     public static function modifyUser($id, $password, $name, $profile, $language) {

@@ -67,12 +67,12 @@ class Parser_PinedaDeMar extends GenericParser {
                 $idBarri = Poblacions::obteIDBarriPerNom($barri, $this->idMunicipi);
                 
                 if($idBarri < 1) {
-                	echo 'Afegint: barri ' . $barri . ' carrer: ' . $carrer_ok . '<br />';
+                	echo 'Afegint: barri ' . $barri . ' carrer: ' . $carrer_ok  . PHP_EOL;
                 	$idBarri = Poblacions::afegeixBarri($barri, $this->idMunicipi);
                 }
                 
                 if($idCarrer < 1) {
-                    echo 'Afegint: via ' . $via . ' carrer: ' . $carrer_ok . '<br />';
+                    echo 'Afegint: via ' . $via . ' carrer: ' . $carrer_ok . PHP_EOL;
                     $idCarrer = Poblacions::afegeixCarrer($via, $carrer_ok, $this->idMunicipi);
                     Poblacions::afegeixBarriCarrer($idBarri, $idCarrer);
                 }

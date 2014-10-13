@@ -60,13 +60,14 @@ abstract class Estadistiques {
         }
 
         if(validDateRange($inici, $fi)) {
-            $filters[] = 'AND `fp`.`data` BETWEEN :inici AND :fi';
+            $filters[] = ' `fp`.`data` BETWEEN :inici AND :fi';
             $params[':inici'] = date2Timestamp($inici, true);
             $params[':fi'] = date2Timestamp($fi, false);
         }
 
         if(count($filters) > 0) {
-            $query.= 'WHERE 1=1 ' . join(' AND ', $filters);
+        	if(empty($params)) $query.= 'WHERE 1=1 ';
+        	else $query.= 'WHERE ' . join(' AND ', $filters);
         }
 
         $query.= ' AND `ocult` = 0 ORDER BY `educador` DESC,`carrer` ASC, `text` ASC';
@@ -124,7 +125,8 @@ abstract class Estadistiques {
         }
           
         
-        ini_set('memory_limit', $originalLimit);        
+        ini_set('memory_limit', $originalLimit);
+        return true;
         
     }
 	

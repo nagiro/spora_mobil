@@ -127,7 +127,7 @@ function action_saveDirection() {
     Sessions::ajaxRedirect('direccions');
 }
 
-function action_saveUser() {
+function action_saveUser() {	
     $id = $_REQUEST['id'];
     $username = $_REQUEST['username'];
     $password1 = $_REQUEST['password1'];
@@ -141,11 +141,11 @@ function action_saveUser() {
         throw new Exception('Les contrasenyes no coincideixen');
     }
 
-    if(!empty($id)) {
+    if(!empty($id) && $id > 0) {
         Users::modifyUser($id, $password1, $name, $profile, $language);
         Users::eliminaMunicipisUsuari($id);
-    } else {
-        Users::register($username, $password1, $name, $profile, $language);
+    } else {    	
+        $id = Users::register($username, $password1, $name, $profile, $language);
     }
     
     Users::desaMunicipisUsuari($id, $municipis);
@@ -208,9 +208,15 @@ function action_parseXLSText() {
         exit;
     }
     
-    $parser = XLSReader::getParser($municipi);
-    $parser->setMunicipi($municipi);    
-    $parser->parse();
+    //Si no hem escollit cap municipi, marquem com a genèric el parser
+    if($municipi >= 0){
+	    $parser = XLSReader::getParser($municipi);
+	    $parser->setMunicipi($municipi);    
+	    $parser->parse();
+    } else {  
+		$parser = new Parser_Generic();
+		$parser->parse();
+    } 
     exit;
 }
 
