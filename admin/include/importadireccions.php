@@ -58,7 +58,7 @@
                 		municipi: indexMunicipi,
                 		fulles: fullesTriades
             		},
-            		function(data){ alert(data); $("#loading").hide(); }
+            		function(data){ $("#loading").html(data); }
             );
                     
             return false;

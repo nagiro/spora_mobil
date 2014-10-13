@@ -1302,6 +1302,34 @@ abstract class Poblacions {
         }
     }
 
+    public static function existeixBarrisCarrer( $barri , $carrer ) {
+    	$db = Database::getInstance();
+    
+    	$query = " SELECT count(*) as n FROM `barriscarrer`
+    	WHERE `barri`= $barri
+    	AND `carrer` = $carrer    	
+    	";
+    	$carrers = $db->query($query);
+    	return ( $carrers[0]['n'] > 0 );
+    
+    }
+    
+    
+    public static function verificaDireccio( $barri , $carrer , $numero , $text , $cadastre ) {
+    	$db = Database::getInstance();
+    
+    	$query = " SELECT count(*) as n FROM `direccions` 
+    				WHERE `barri`= $barri 
+    				  AND `carrer` = $carrer
+    				  AND `numero` = $numero
+    				  AND `text` = '$text'
+    				  AND `cadastre` = '$cadastre'    				  	 
+    	";
+    	$carrers = $db->query($query);    	
+    	return ( $carrers[0]['n'] > 0 );
+
+    }    
+    
     public static function importaDireccions(array $numeros) {
         $userID = $_SESSION['userID'];
 
