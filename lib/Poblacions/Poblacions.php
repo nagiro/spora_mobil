@@ -854,7 +854,7 @@ abstract class Poblacions {
 	    	$params = array(
 	    			':id' => $direccio,	    			
 	    			':comentari' => $text,
-	    			':data' => date('Y-m-d',time()),
+	    			':data' => date('Y-m-d H:i:s',time()),
 	    			':educador' => $educador
 	    	);	    	
 	    	return $db->exec($query, $params);
@@ -1483,6 +1483,29 @@ abstract class Poblacions {
 
     	return $db->exec($query, $params);
     	
+    }
+
+    public static function llistaComentaris() {
+    	$db = Database::getInstance();
+    
+    	$query = '
+	        Select  municipis.nom as nom_municipi, 
+					direccions.numero as dir_num, 
+    				direccions.text as dir_adreca,
+	        		direccions.comentari as comentari, 
+	        		carrers.nom as nom_carrer, 
+	        		direccions.educador_comentari as educador,
+	        		usuaris.nom as nom_educador,
+    				direccions.id as id_direccio,
+    				direccions.data_comentari as data        
+	  		 FROM municipis, direccions, carrers, usuaris
+	 		WHERE municipis.id = carrers.municipi
+	   		  AND carrers.id = direccions.carrer   
+	   		  AND NOT isnull(direccions.comentari)
+	   		  AND usuaris.id = direccions.educador_comentari
+    		ORDER BY data DESC';
+    
+    	return $db->query($query);
     }
     
     
