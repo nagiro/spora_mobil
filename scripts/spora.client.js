@@ -62,4 +62,15 @@ $(function() {
             });
         }
     });
+    
+    $('.textActuacio').live('change', function() {
+        var pieces = $(this).attr('id').split('_', 2);
+
+        if(pieces.length >= 2) {
+            $.post('?action=saveTextActuacio', {
+                direccio: pieces[0],                
+                text: $(this).val()
+            }, function(data){ if(data == 1) alert('Comentari guardat!'); else alert('No he pogut guardar el comentari!'); });
+        }
+    });
 });

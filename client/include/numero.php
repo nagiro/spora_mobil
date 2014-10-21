@@ -68,7 +68,8 @@
     <div data-role="content" style="padding:0 15px;">
         <?php
             $num = Poblacions::mostraActuacionsCarrer($id, $a, $count, $offset);
-            $opc = Poblacions::mostraOpcions(Poblacions::obteMunicipiCarrer($id));            
+            $opc = Poblacions::mostraOpcions(Poblacions::obteMunicipiCarrer($id));
+            $comentaris_carrer = Poblacions::mostraComentaris($id);                        
 
             if(is_array($num)) {
                 foreach($num as $n) {
@@ -105,7 +106,8 @@
                                         <input class="opcioActuacio" type="checkbox" id="' . $idAttr . '" name="' . $idAttr . '" title="' . $n['id'] . '" ' . $bloquejat . ' ' . $marcat . '/>
                                         <label for="' . $idAttr . '"> ' . $o['abreviacio'] . ' </label>
                                     ';
-                                }
+                                }                                
+                                echo '<input value="'.$comentaris_carrer[$n['id']].'" style="height:10px; width:120px" maxlength="180" class="textActuacio" type="text" id="' . $n['id'].'_0" name="' . $n['id'].'_0" title="' . $n['id'] . '" ' . $bloquejat . ' />';
                     echo '</fieldset>
                     </div>';
                 }

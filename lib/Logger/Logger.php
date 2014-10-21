@@ -7,11 +7,11 @@ abstract class Logger {
     public static function append($channel, $message, $trace = '') {
         $channel = basename($channel);
         $message = trim($message);
-
+        
         if(!self::isValidChannel($channel) || empty($message)) {
             return false;
         }
-
+        //var_dump($message);
         $path = LOG_DIR . '/' . $channel . '.txt';
 
         if(file_exists($path)) {
@@ -26,7 +26,7 @@ abstract class Logger {
 
         $message = date('[d/m/Y H:i]') . $message;
 
-        fwrite($fp, $message . PHP_EOL);
+        fwrite($fp, $message . PHP_EOL);        
 
         if(!empty($trace)) {
             fwrite($fp, "\t " . $trace . PHP_EOL);

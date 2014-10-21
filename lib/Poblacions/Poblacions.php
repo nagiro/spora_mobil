@@ -683,6 +683,24 @@ abstract class Poblacions {
         return Database::getInstance()->query($query, array(':idioma' => Sessions::getVar('language')));
     }
 
+    public static function mostraComentaris($carrer) {
+    	$query = '
+        SELECT
+    		`d`.`id`,	
+            `d`.`comentari`            
+        FROM `direccions` `d`            
+        WHERE `d`.`carrer` = :id';
+    	$params = array(':id' => $carrer);
+    	
+    	$ret = array();
+    	foreach( Database::getInstance()->query($query, $params) as $A ):
+    		$ret[$A['id']] = utf8_decode($A['comentari']);
+    	endforeach;
+    	
+    	return $ret;
+    }
+    
+    
     public static function obteNombreLlarsCarrer($id, $barri) {
         if(empty($id)) {
             return false;
@@ -799,6 +817,50 @@ abstract class Poblacions {
         return true;
     }
 
+    public static function desaTextDireccio($direccio, $text) {
+    	if(empty($direccio)) {
+    		return false;
+    	}
+    
+    	$educador = $_SESSION['userID'];
+    
+    	if(empty($educador)) {
+    		return false;
+    	}
+
+    	$db = Database::getInstance();
+    	
+    	$query = '
+        SELECT
+            `d`.`id`            
+        FROM `direccions` `d`            
+        WHERE `d`.`id` = :id';
+    	$params = array(':id' => $direccio);
+    	
+    	$ret = $db->query($query, $params);    	        	
+    	
+    	//si hem trobat la direccio, fem un update del camp text
+    	if(sizeof($ret) > 0):
+    	
+    		$db = Database::getInstance();
+    	
+	    	$query = '
+	        UPDATE `direccions` SET
+	            `comentari` = :comentari	            
+	        WHERE `id` = :id';
+	    	$params = array(
+	    			':id' => $direccio,	    			
+	    			':comentari' => $text,
+	    	);
+	    	
+	    	return $db->exec($query, $params);
+    		    	
+    	endif;
+    	    
+    	return false;
+    }
+    
+    
     public static function eliminaResolucioDireccio($direccio, $actuacio) {
         if(empty($direccio) || empty($actuacio)) {
             return false;

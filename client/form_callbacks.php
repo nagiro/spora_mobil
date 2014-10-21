@@ -97,4 +97,20 @@ function action_saveActuacio() {
     exit;
 }
 
+function action_saveTextActuacio() {
+	$direccio = $_REQUEST['direccio'];
+	$text = $_REQUEST['text'];	
+
+	$userID = $_SESSION['userID'];
+
+	if(empty($userID) || empty($direccio)) {
+		exit;
+	}
+
+	//Guardem el text
+	echo Poblacions::desaTextDireccio($direccio, $text);	
+	
+	exit;
+}
+
 ?>
