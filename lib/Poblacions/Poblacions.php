@@ -846,13 +846,17 @@ abstract class Poblacions {
     	
 	    	$query = '
 	        UPDATE `direccions` SET
-	            `comentari` = :comentari	            
+	            `comentari` = :comentari,
+	    		`data_comentari` = :data,
+	    		`educador_comentari` = :educador	            
 	        WHERE `id` = :id';
+	    	
 	    	$params = array(
 	    			':id' => $direccio,	    			
 	    			':comentari' => $text,
-	    	);
-	    	
+	    			':data' => date('Y-m-d',time()),
+	    			':educador' => $educador
+	    	);	    	
 	    	return $db->exec($query, $params);
     		    	
     	endif;
