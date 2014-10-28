@@ -24,12 +24,12 @@ function IsLatin1($str) {
 
 function cleanString($orig) {
     $orig = trim($orig);
-    
+        
     if(mb_detect_encoding($orig . 'a','UTF-8, ISO-8859-1') == "ISO-8859-1") {
        $orig = utf8_encode($orig);
     }
 
-    $orig = ucwords(strtolower($orig));
+    $orig = mb_convert_case($orig, MB_CASE_TITLE, "UTF-8");
     $orig = eliminateMBChars($orig);
 
     return $orig;
